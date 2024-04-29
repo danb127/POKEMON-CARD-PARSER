@@ -1,0 +1,35 @@
+echo "Running tests..."
+echo
+  
+rm -rf parser
+make
+./parser pokemon_full.csv 1 > TESTOUT
+  
+if [ $? -eq 0 ] ; then
+  echo "Pass: Program exited zero"
+else
+  echo "Fail: Program did not exit zero"
+  rm TESTOUT
+  exit 1
+fi
+ 
+diff TESTOUT tests/pokemon_full_1.out > DIFFOUT
+ 
+if [ $? -eq 0 ] ; then
+  echo "Pass: Output is correct"
+else
+  echo "Fail: Output is not correct"
+  echo "!!! DIFF OUTPUT DISABLED BY DEFAULT !!!"
+  # cat DIFFOUT
+  rm TESTOUT
+  rm DIFFOUT
+  exit 1
+fi
+ 
+echo
+echo "All tests passed."
+ 
+rm TESTOUT
+rm DIFFOUT
+exit 0
+
