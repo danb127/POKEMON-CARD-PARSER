@@ -1,0 +1,2 @@
+parser: parser.c
+	cc -o parser parser.c -g -std=gnu11 -Werror -Wall
